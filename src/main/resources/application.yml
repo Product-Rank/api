@@ -1,2 +1,9 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/product_rank_db"
+    username: "${MYSQL_USER:pr_user}"
+    password: "${MYSQL_PASSWORD:pr_user}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
 server:
   port: 8080
