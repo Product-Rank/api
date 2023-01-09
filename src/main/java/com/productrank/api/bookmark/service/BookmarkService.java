@@ -1,7 +1,7 @@
-package com.productrank.api.service;
+package com.productrank.api.bookmark.service;
 
-import com.productrank.api.entity.Bookmark;
-import com.productrank.api.repository.BookmarkRepository;
+import com.productrank.api.bookmark.entity.Bookmark;
+import com.productrank.api.bookmark.repository.BookmarkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

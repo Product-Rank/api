@@ -1,4 +1,4 @@
-package com.productrank.api.entity;
+package com.productrank.api.bookmark.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

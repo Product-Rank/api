@@ -1,6 +1,6 @@
-package com.productrank.api.repository;
+package com.productrank.api.bookmark.repository;
 
-import com.productrank.api.entity.Bookmark;
+import com.productrank.api.bookmark.entity.Bookmark;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

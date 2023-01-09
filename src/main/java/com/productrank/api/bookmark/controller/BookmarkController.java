@@ -1,7 +1,7 @@
-package com.productrank.api.controller;
+package com.productrank.api.bookmark.controller;
 
-import com.productrank.api.entity.Bookmark;
-import com.productrank.api.service.BookmarkService;
+import com.productrank.api.bookmark.entity.Bookmark;
+import com.productrank.api.bookmark.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
