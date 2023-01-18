@@ -20,10 +20,6 @@ public class BookmarkController {
 
     @GetMapping
     public List<Bookmark> findAll() {
-        Bookmark bookmark = new Bookmark();
-        System.out.println("bookmark = " + bookmark);
-        List<Bookmark> all = bookmarkService.findAll();
-        System.out.println(all.get(0).getId());
-        return all;
+        return bookmarkService.findAll();
     }
 }
