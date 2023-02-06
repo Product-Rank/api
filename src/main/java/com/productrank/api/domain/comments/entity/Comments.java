@@ -1,5 +1,6 @@
 package com.productrank.api.domain.comments.entity;
 
+import com.productrank.api.domain.CommonEntity;
 import com.productrank.api.domain.product.entity.Product;
 import com.productrank.api.domain.user.entity.User;
 import jakarta.persistence.Column;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "COMMENTS")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comments {
+public class Comments extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

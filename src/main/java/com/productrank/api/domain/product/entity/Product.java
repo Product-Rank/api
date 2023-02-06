@@ -1,5 +1,6 @@
 package com.productrank.api.domain.product.entity;
 
+import com.productrank.api.domain.CommonEntity;
 import com.productrank.api.domain.company.entity.Company;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,7 +24,7 @@ import java.util.List;
 @Table(name = "PRODUCT")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Product extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

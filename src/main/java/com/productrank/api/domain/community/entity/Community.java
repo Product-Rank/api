@@ -1,5 +1,6 @@
 package com.productrank.api.domain.community.entity;
 
+import com.productrank.api.domain.CommonEntity;
 import com.productrank.api.domain.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class Community {
+public class Community extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

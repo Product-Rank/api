@@ -1,25 +1,21 @@
 package com.productrank.api.domain.user.entity;
 
 import com.productrank.api.domain.company.entity.Company;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Table(name = "PRODUCT_USER")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -34,9 +30,11 @@ public class User {
     private String userName;
     private String nickName;
     private String ThumbnailUrl;
-
+    @Column(nullable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     @OneToMany(mappedBy = "owner")
-    List<Company> companyList = new ArrayList<>();
+    List<Company> companyList;
 
     @PrePersist
     public void prePersist() {
