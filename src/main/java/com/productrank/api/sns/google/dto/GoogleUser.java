@@ -1,5 +1,6 @@
 package com.productrank.api.sns.google.dto;
 
+import com.productrank.api.domain.user.entity.SNSType;
 import com.productrank.api.sns.common.SNSUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +18,6 @@ public class GoogleUser extends SNSUser {
     public String familyName;
     public String picture;
     public String locale;
+    public final SNSType snsType = SNSType.GOOGLE;
 }
 
