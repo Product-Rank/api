@@ -65,9 +65,9 @@ public class KakaoOauth implements SocialOauth {
         KakaoData.KakaoAccount accounts = contents.kakao_account();
         KakaoData.Profile profile = accounts.profile();
         return KakaoUser.builder()
-                .thumbnail_image_url(profile.thumbnail_image_url())
+                .picture(profile.thumbnail_image_url())
                 .email(accounts.email())
-                .nickname(profile.nickname())
+                .name(profile.nickname())
                 .build();
     }
 
