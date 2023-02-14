@@ -17,7 +17,7 @@ public class UserService {
                 .nickName(userdto.nickName())
                 .email(userdto.email())
                 .snsType(userdto.snsType())
-                .ThumbnailUrl(userdto.ThumbnailUrl())
+                .picture(userdto.picture())
                 .build();
         User entityUser = userRepository.save(user);
         return entityUser;

@@ -10,8 +10,8 @@ import lombok.*;
 @Setter
 @Builder
 public class KakaoUser extends SNSUser {
-    private String nickname;
+    private String name;
     private String email;
-    private String thumbnail_image_url;
+    private String picture;
     public final SNSType snsType = SNSType.KAKAO;
 }

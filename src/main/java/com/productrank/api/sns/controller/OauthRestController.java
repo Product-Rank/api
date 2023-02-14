@@ -1,13 +1,17 @@
 package com.productrank.api.sns.controller;
 
+import com.productrank.api.domain.user.service.UserService;
 import com.productrank.api.sns.common.Constant;
 import com.productrank.api.sns.common.SNSUser;
+import com.productrank.api.sns.kakao.client.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
 
 @RestController
 @RequiredArgsConstructor

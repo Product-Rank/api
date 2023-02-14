@@ -55,11 +55,6 @@ public class GoogleOauth implements SocialOauth {
         log.info("redirectURL = " + redirectURL);
 
         return redirectURL;
-        /*
-         * https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code
-         * &client_id="할당받은 id"&redirect_uri="access token 처리")
-         * 로 Redirect URL을 생성하는 로직을 구성
-         * */
     }
     public GoogleOAuthToken getAccessToken(ResponseEntity<String> response) throws JsonProcessingException {
         System.out.println("response.getBody() = " + response.getBody());
