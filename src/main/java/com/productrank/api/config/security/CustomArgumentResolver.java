@@ -1,6 +1,6 @@
 package com.productrank.api.config.security;
 
-import com.productrank.api.domain.user.entity.User;
+import com.productrank.api.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;

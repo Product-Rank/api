@@ -1,0 +1,30 @@
+spring:
+  OAuth2:
+    google:
+      url: https://accounts.google.com/o/oauth2/v2/auth
+      client-id: 267128267714-429674r8phprhq5efrg668edfilbkfb3.apps.googleusercontent.com
+      client-secret: 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
+      callback-url: http://localhost:8080/auth/google/callback
+      scope: https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+    kakao:
+      url: https://kauth.kakao.com/oauth/authorize
+      client_id: 1b19c23a782b51e3dc161cde50ed4e0b
+      grant_type: authorization_code
+      redirect_uri: http://localhost:8080/auth/kakao/callback
+  security:
+    oauth2:
+      client:
+        registration:
+          google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
+            client-id: 969132643681-mc9d45updpf5f779e561e8vnbp81nc72.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/sns/google/info
+            scope:
+              - email
+              - profile
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+jwt:
+  secret: 3455974691abcc4a44f6b5dff6ada03d08c6f6aa9600e74a0a497caec4cbb6c3b0d0d16df7b4277664776a098c67132420a947bb768a9b21fb9fb08fdfe5ee6e
+  expiration_time: 86400000

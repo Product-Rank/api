@@ -1,6 +1,6 @@
 package com.productrank.api.config.security.custom;
 
-import com.productrank.api.domain.user.entity.User;
+import com.productrank.api.domain.entity.User;
 import lombok.ToString;
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -9,7 +9,7 @@ public class SecurityUser extends org.springframework.security.core.userdetails.
     private User user;
 
     public SecurityUser(User user) {
-        super(user.getEmail(), "",
+        super(String.format("%s", user.getEmail(), user.getSnsType()), "",
                 AuthorityUtils.createAuthorityList("USER"));
         this.user = user;
     }

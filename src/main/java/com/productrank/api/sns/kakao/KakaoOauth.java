@@ -2,11 +2,12 @@ package com.productrank.api.sns.kakao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.productrank.api.domain.entity.enums.SNSType;
+import com.productrank.api.sns.common.SNSUser;
 import com.productrank.api.sns.common.SocialOauth;
 import com.productrank.api.sns.kakao.client.KakaoApiClient;
 import com.productrank.api.sns.kakao.client.KakaoClient;
 import com.productrank.api.sns.kakao.client.KakaoData;
-import com.productrank.api.sns.kakao.dto.KakaoUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,14 +61,15 @@ public class KakaoOauth implements SocialOauth {
 
         return ResponseEntity.ok(response.bearerTokenInfo());
     }
-    public KakaoUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException{
+    public SNSUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException{
         KakaoData contents = loginClient.getUserData(userInfoRes.getBody());
         KakaoData.KakaoAccount accounts = contents.kakao_account();
         KakaoData.Profile profile = accounts.profile();
-        return KakaoUser.builder()
+        return SNSUser.builder()
                 .picture(profile.thumbnail_image_url())
                 .email(accounts.email())
                 .name(profile.nickname())
+                .snsType(SNSType.KAKAO)
                 .build();
     }
 

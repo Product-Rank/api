@@ -1,5 +1,6 @@
 package com.productrank.api.config.security;
 
+import com.productrank.api.domain.entity.enums.SNSType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -27,9 +28,9 @@ public class JwtTokenProvider {
     private String tokenValidTime;
     private final String HEADER = "Authorization";
     private final UserDetailsService userDetailsService;
-
-    public String createToken(String userPK) {
+    public String createToken(String userPK, SNSType type) {
         Claims claims = Jwts.claims().setSubject(userPK); // JWT payload에 저장되는 정보 단위
+        claims.put("SNSType", type);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userPK)

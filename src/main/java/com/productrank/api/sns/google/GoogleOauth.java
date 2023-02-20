@@ -2,9 +2,10 @@ package com.productrank.api.sns.google;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.productrank.api.domain.entity.enums.SNSType;
+import com.productrank.api.sns.common.SNSUser;
 import com.productrank.api.sns.common.SocialOauth;
 import com.productrank.api.sns.google.dto.GoogleOAuthToken;
-import com.productrank.api.sns.google.dto.GoogleUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,8 +76,9 @@ public class GoogleOauth implements SocialOauth {
         System.out.println("response.getBody() = " + response.getBody());
         return response;
     }
-    public GoogleUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException{
-        GoogleUser googleUser=objectMapper.readValue(userInfoRes.getBody(),GoogleUser.class);
+    public SNSUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException{
+        SNSUser googleUser=objectMapper.readValue(userInfoRes.getBody(),SNSUser.class);
+        googleUser.setSnsType(SNSType.GOOGLE);
         return googleUser;
     }
     public ResponseEntity<String> requestAccessToken(String code) {

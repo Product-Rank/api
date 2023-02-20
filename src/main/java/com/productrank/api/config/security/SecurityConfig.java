@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -44,13 +45,17 @@ public class SecurityConfig {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests((authorization) ->
-                        authorization.requestMatchers(NOT_FILTER_URL).permitAll()
+                        authorization
+                                .requestMatchers(NOT_FILTER_URL).permitAll()
 //                        .requestMatchers("/swagger-resources/**",
 //                                "/swagger-ui.html",
 //                                "/v2/api-docs",
 //                                "/webjars/**").permitAll()
-                        .requestMatchers("/**").permitAll())
-//             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/app/**").authenticated()
+                                .anyRequest().authenticated()
+                                )
+             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
              .formLogin()
                 .disable()
              .headers()
