@@ -11,6 +11,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,11 +20,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "COMMENTS")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Comments extends CommonEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String comment;
     @Column(name = "like_cnt")
     private Long like;
@@ -31,7 +30,7 @@ public class Comments extends CommonEntity {
     @Column(nullable = true)
     private Long parentsId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -42,5 +41,15 @@ public class Comments extends CommonEntity {
     @PrePersist
     public void prePersist() {
         like = 0L;
+    }
+
+    public void setProduct(Product product){
+        this.product = product;
+        product.addComments(this);
+    }
+
+    public void setUser(User user){
+        this.user = user;
+        user.addComments(this);
     }
 }

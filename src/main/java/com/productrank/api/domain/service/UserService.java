@@ -7,6 +7,8 @@ import com.productrank.api.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -31,5 +33,8 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("IS NOT VALID USER"));
     }
 
+    public Optional<User> isUserExisted(String email){
+        return userRepository.findByEmail(email);
+    }
 
 }

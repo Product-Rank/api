@@ -1,21 +1,13 @@
 package com.productrank.api.domain.service;
 
-import com.productrank.api.config.security.custom.SecurityUser;
-import com.productrank.api.config.security.custom.SecurityUserDetailService;
 import com.productrank.api.domain.dto.CompanyDto;
-import com.productrank.api.domain.dto.UserDto;
 import com.productrank.api.domain.entity.Company;
 import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.repository.CompanyRepository;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,5 +40,11 @@ public class CompanyService {
     public List<CompanyDto> getCompanyList(User user) {
         return companyRepository.findByUserId(user.getId())
                 .stream().map(CompanyDto::from).collect(Collectors.toList());
+    }
+
+    public Company getCompanyById(String companyName){
+        return companyRepository.findByCompanyName(companyName).orElseThrow(
+                () -> new RuntimeException(ErrorCode.NOT_EXIST_COMPANY.getMessage())
+        );
     }
 }

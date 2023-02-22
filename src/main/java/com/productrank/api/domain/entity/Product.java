@@ -12,9 +12,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,10 +24,8 @@ import java.util.List;
 @Table(name = "PRODUCT")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product extends CommonEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String productName;
 
@@ -43,8 +43,21 @@ public class Product extends CommonEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comments> commentsList;
+
     @PrePersist
     public void prePersist() {
         like = 0L;
+        this.commentsList = new ArrayList<>();
+    }
+
+    public void setCompany(Company company){
+        this.company = company;
+        company.addProduct(this);
+    }
+
+    public void addComments(Comments comments) {
+        this.commentsList.add(comments);
     }
 }

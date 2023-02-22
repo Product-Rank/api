@@ -21,6 +21,7 @@ public record UserDto(
                 .userName(user.getUserName())
                 .picture(picture)
                 .nickName(user.getNickName())
+                .accessToken(user.getAccessToken())
                 .build();
     }
 

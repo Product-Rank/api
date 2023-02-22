@@ -13,4 +13,5 @@ public class SNSUser {
     private String email;
     private String picture;
     public SNSType snsType;
+    private String accessToken;
 }

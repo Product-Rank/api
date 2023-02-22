@@ -1,6 +1,7 @@
 package com.productrank.api.sns.controller;
 
 import com.productrank.api.config.security.JwtTokenProvider;
+import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.service.UserService;
 import com.productrank.api.sns.common.Constant;
 import com.productrank.api.sns.common.SNSUser;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,15 +35,20 @@ public class OauthRestController {
         log.info(">> 소셜 로그인 API 서버로부터 받은 code :"+ code);
         Constant.SocialLoginType socialLoginType= Constant.SocialLoginType.valueOf(socialLoginPath.toUpperCase());
         SNSUser oAuthUser=oAuthService.oAuthLogin(socialLoginType,code);
-
-        userService.saveUser(UserDto.builder()
-                        .userName(oAuthUser.getName())
-                        .email(oAuthUser.getEmail())
-                        .nickName(oAuthUser.getName())
-                        .picture(oAuthUser.getPicture())
-                        .snsType(oAuthUser.getSnsType())
-                        .accessToken(provider.createToken(oAuthUser.getEmail(), oAuthUser.getSnsType()))
-                        .build());
+        Optional<User> userOptional = userService.isUserExisted(oAuthUser.getEmail());
+        if(userOptional.isEmpty()){
+            UserDto user = userService.saveUser(UserDto.builder()
+                            .userName(oAuthUser.getName())
+                            .email(oAuthUser.getEmail())
+                            .nickName(oAuthUser.getName())
+                            .picture(oAuthUser.getPicture())
+                            .snsType(oAuthUser.getSnsType())
+                            .accessToken(provider.createToken(oAuthUser.getEmail(), oAuthUser.getSnsType()))
+                            .build());
+            oAuthUser.setAccessToken(user.accessToken());
+        }else{
+            oAuthUser.setAccessToken(userOptional.get().getAccessToken());
+        }
 
         return ResponseEntity.ok(oAuthUser);
     }
