@@ -10,9 +10,10 @@ spring:
     username: "${MYSQL_USER:pr_user}"
     password: "${MYSQL_PASSWORD:pr_user}"
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:userdb;DB_CLOSE_DELAY=-1
-#    username: sa
-#    password:
+  jpa:
+    show-sql: true
 server:
   port: 8080
+feign:
+  hystrix:
+    enabled: true
