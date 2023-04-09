@@ -12,7 +12,6 @@ import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.method.annotation.ErrorsMethodArgumentResolver;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,18 +41,17 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDto makeProduct(ProductDto productDto, String companyName) {
-        Company company = companyService.getCompanyById(companyName);
+    public ProductDto makeProduct(ProductDto productDto, Long companyId) {
+        Company company = companyService.getCompanyById(companyId);
         Product product = Product.builder()
                 .productName(productDto.productName())
                 .productDescription(productDto.productDescription())
                 .ThumbnailUrl(productDto.ThumbnailUrl())
-                .like(0L)
+                .vote(0L)
                 .company(company)
                 .build();
         Product entity = productRepository.save(product);
         entity.setCompany(company);
-
 
         return ProductDto.from(entity);
     }
@@ -72,6 +70,35 @@ public class ProductService {
 
         return ProductDto.from(product);
     }
+    @Transactional
+    public ProductDto updateProduct(User user, ProductDto dto) {
+        Product product = productRepository.findById(dto.id())
+                .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_PRODUCT.getMessage()));
 
+        if(user.getId() != product.getCompany().getOwner().getId()){
+            throw new RuntimeException(ErrorCode.NOT_MATCH_WRITER.getMessage());
+        }
 
+        product.updateProductDescription(dto.productDescription());
+        product.updateName(dto.productName());
+
+        return ProductDto.from(product);
+    }
+    @Transactional
+    public ProductDto voteUp(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_PRODUCT.getMessage()));
+
+        product.voteUp();
+
+        return ProductDto.from(product);
+    }
+
+    public ProductDto deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_PRODUCT.getMessage()));
+
+        productRepository.delete(product);
+        return ProductDto.from(product);
+    }
 }

@@ -31,5 +31,6 @@ public class ErrorAdvisor extends ResponseEntityExceptionHandler {
         ErrorResponse re = new ErrorResponse(ErrorCode.find(ex.getMessage()));
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(re);
     }
+
 //    UsernameNotFoundException
 }

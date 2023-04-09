@@ -1,5 +1,6 @@
 package com.productrank.api.domain.entity;
 
+import com.productrank.api.domain.dto.CompanyDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,5 +44,11 @@ public class Company extends CommonEntity {
 
     public void addProduct(Product product) {
         this.productList.add(product);
+    }
+
+    public void updateData(CompanyDto dto){
+        this.companyName = dto.companyName();
+        this.companyDescription = dto.companyDescription();
+        this.companyNumber = dto.companyNumber();
     }
 }

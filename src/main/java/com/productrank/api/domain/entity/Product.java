@@ -3,9 +3,6 @@ package com.productrank.api.domain.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -33,8 +30,8 @@ public class Product extends CommonEntity {
 
     private String ThumbnailUrl;
 
-    @Column(name = "like_cnt")
-    private Long like;
+    @Column(name = "vote_cnt")
+    private Long vote;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
@@ -48,7 +45,7 @@ public class Product extends CommonEntity {
 
     @PrePersist
     public void prePersist() {
-        like = 0L;
+        vote = 0L;
         this.commentsList = new ArrayList<>();
     }
 
@@ -59,5 +56,16 @@ public class Product extends CommonEntity {
 
     public void addComments(Comments comments) {
         this.commentsList.add(comments);
+    }
+
+    public void updateName(String productName){
+        this.productName = productName;
+    }
+
+    public void updateProductDescription(String productDescription){
+        this.productDescription = productDescription;
+    }
+    public void voteUp(){
+        this.vote+=1;
     }
 }

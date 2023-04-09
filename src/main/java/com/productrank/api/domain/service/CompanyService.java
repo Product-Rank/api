@@ -42,9 +42,35 @@ public class CompanyService {
                 .stream().map(CompanyDto::from).collect(Collectors.toList());
     }
 
-    public Company getCompanyById(String companyName){
-        return companyRepository.findByCompanyName(companyName).orElseThrow(
+    public Company getCompanyById(Long id){
+        return companyRepository.findById(id).orElseThrow(
                 () -> new RuntimeException(ErrorCode.NOT_EXIST_COMPANY.getMessage())
         );
+    }
+
+    @Transactional
+    public CompanyDto updateCompany(User user, CompanyDto dto) {
+        Company entity = companyRepository.findById(dto.id())
+                .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_COMPANY.getMessage()));
+
+        if(entity.getOwner().getId() != user.getId()){
+            throw new RuntimeException(ErrorCode.NOT_MATCH_WRITER.getMessage());
+        }
+
+        entity.updateData(dto);
+        return CompanyDto.from(entity);
+    }
+
+    @Transactional
+    public CompanyDto deleteCompany(User user, CompanyDto dto) {
+        Company entity = companyRepository.findById(dto.id())
+                .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_COMPANY.getMessage()));
+
+        if(entity.getOwner().getId() != user.getId()){
+            throw new RuntimeException(ErrorCode.NOT_MATCH_WRITER.getMessage());
+        }
+        CompanyDto deleteData = CompanyDto.from(entity);
+        companyRepository.delete(entity);
+        return deleteData;
     }
 }
