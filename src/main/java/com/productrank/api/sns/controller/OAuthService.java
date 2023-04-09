@@ -23,7 +23,6 @@ public class OAuthService {
         String redirectURL;
         switch (socialLoginType) {
             case GOOGLE: {
-                //각 소셜 로그인을 요청하면 소셜로그인 페이지로 리다이렉트 해주는 프로세스이다.
                 redirectURL = googleOauth.getOauthRedirectURL();
             }
             break;
