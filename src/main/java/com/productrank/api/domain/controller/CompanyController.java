@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/app/company")
+@RequestMapping("/api/company")
 @Slf4j
 public class CompanyController {
     private final CompanyService companyService;

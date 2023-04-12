@@ -5,11 +5,17 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "bookmark")
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bookmark extends CommonEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
