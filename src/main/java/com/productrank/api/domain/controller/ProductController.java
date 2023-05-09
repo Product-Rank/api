@@ -61,8 +61,9 @@ public class ProductController {
     }
 
     @GetMapping("/ranking/{rankingType}")
-    public ResponseEntity<List<ProductDto>> getRankings(@PathVariable("rankingType")RankingType type){
-        return ResponseEntity.ok(productService.getRankProducts(type));
+    public ResponseEntity<List<ProductDto>> getRankings(@PathVariable("rankingType")String type){
+        RankingType rType = RankingType.valueOf(type);
+        return ResponseEntity.ok(productService.getRankProducts(rType));
     }
     /* TODO: 1. update product
                 -1 view update (v)

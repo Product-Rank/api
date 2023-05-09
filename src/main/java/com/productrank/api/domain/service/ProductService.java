@@ -12,6 +12,7 @@ import com.productrank.api.domain.repository.ProductRepository;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
     private final ProductRepository productRepository;
     private final CompanyService companyService;
@@ -115,12 +117,7 @@ public class ProductService {
     }
 
     public List<ProductDto> getRankProducts(RankingType type) {
-        List<String> startAndEndDay = type.getStartAndEndDay();
-
-        if(type.equals(RankingType.DAILY)){
-
-        }
-
+        rankingService.getRanks(type);
         return null;
     }
 }

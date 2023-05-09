@@ -24,7 +24,7 @@ public enum RankingType {
 
     private List<String> getDays() {
         LocalDate date = LocalDate.now();
-        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return List.of(date.format(sdf));
     }
 
@@ -33,7 +33,7 @@ public enum RankingType {
         LocalDate firstDayOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate lastDayOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return List.of(firstDayOfWeek.format(sdf), lastDayOfWeek.format(sdf));
     }
     private List<String> getMonths(){
@@ -43,7 +43,7 @@ public enum RankingType {
         YearMonth yearMonth = YearMonth.from(date);
         LocalDate lastDayOfMonth = yearMonth.atEndOfMonth();
 
-        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return List.of(firstDayOfMonth.format(sdf), lastDayOfMonth.format(sdf));
     }
     public List<String> getYears(){
@@ -52,7 +52,7 @@ public enum RankingType {
         // 올해의 마지막날 구하기
         LocalDate lastDayOfYear = date.withDayOfYear(365);
 
-        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return List.of(firstDayOfYear.format(sdf), lastDayOfYear.format(sdf));
     }
 
