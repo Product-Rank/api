@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS bookmark CASCADE;
-DROP TABLE IF EXISTS comments CASCADE;
-DROP TABLE IF EXISTS product_image CASCADE;
-DROP TABLE IF EXISTS product CASCADE;
-DROP TABLE IF EXISTS company CASCADE;
-DROP TABLE IF EXISTS questionnaire CASCADE;
-DROP TABLE IF EXISTS community CASCADE;
-DROP TABLE IF EXISTS ranking CASCADE;
-DROP TABLE IF EXISTS product_user CASCADE;
+drop table IF EXISTS bookmark CASCADE;
+drop table IF EXISTS comments CASCADE;
+drop table IF EXISTS product_image CASCADE;
+drop table IF EXISTS product CASCADE;
+drop table IF EXISTS company CASCADE;
+drop table IF EXISTS questionnaire CASCADE;
+drop table IF EXISTS community CASCADE;
+drop table IF EXISTS ranking CASCADE;
+drop table IF EXISTS product_user CASCADE;
 
-CREATE TABLE product_user (
+create TABLE product_user (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -21,7 +21,7 @@ user_name VARCHAR(255),
 PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE company (
+create TABLE company (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -33,7 +33,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (user_id) REFERENCES product_user(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE product (
+create TABLE product (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -46,7 +46,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (company_id) REFERENCES company(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE product_image (
+create TABLE product_image (
 id BIGINT NOT NULL AUTO_INCREMENT,
 url VARCHAR(255),
 product_id BIGINT NOT NULL,
@@ -54,7 +54,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (product_id) REFERENCES product(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE bookmark (
+create TABLE bookmark (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -65,7 +65,7 @@ FOREIGN KEY (product_id) REFERENCES product(id),
 FOREIGN KEY (user_id) REFERENCES product_user(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE comments (
+create TABLE comments (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -80,7 +80,7 @@ FOREIGN KEY (product_id) REFERENCES product(id),
 FOREIGN KEY (user_id) REFERENCES product_user(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE community (
+create TABLE community (
 id BIGINT NOT NULL AUTO_INCREMENT,
 created_at DATETIME(6) NOT NULL,
 updated_at DATETIME(6) NOT NULL,
@@ -92,7 +92,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (user_id) REFERENCES product_user(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE questionnaire (
+create TABLE questionnaire (
 id BIGINT NOT NULL AUTO_INCREMENT,
 answer VARCHAR(255),
 answered_at DATETIME(6) NOT NULL,
@@ -104,16 +104,11 @@ PRIMARY KEY (id),
 FOREIGN KEY (user_id) REFERENCES product_user(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE ranking (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    created_at DATETIME(6) NOT NULL,
-    updated_at DATETIME(6) NOT NULL,
-    product_id BIGINT NOT NULL,
-    type VARCHAR(255) NOT NULL,
-    year INT NOT NULL,
-    month INT,
-    week INT,
-    day INT,
-    `rank` INT NOT NULL,
-    PRIMARY KEY (id)
-) ENGINE=InnoDB;
+create table ranking (
+    id bigint not null auto_increment,
+    product_id bigint not null,
+    user_id bigint not null,
+    created_at datetime(6) not null,
+    updated_at datetime(6) not null,
+    primary key (id)
+ ) engine=InnoDB;
