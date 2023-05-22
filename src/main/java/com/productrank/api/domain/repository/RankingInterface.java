@@ -1,6 +1,6 @@
 package com.productrank.api.domain.repository;
 
-public interface TestIf {
+public interface RankingInterface {
     Long getId();
     int getCounts();
 }

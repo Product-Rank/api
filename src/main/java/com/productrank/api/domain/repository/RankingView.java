@@ -1,10 +1,10 @@
 package com.productrank.api.domain.repository;
 
-public class TestRealIf implements TestIf{
+public class RankingView implements RankingInterface {
     private Long id;
     private int counts;
 
-    public TestRealIf(Long id, int counts) {
+    public RankingView(Long id, int counts) {
         this.id = id;
         this.counts = counts;
     }

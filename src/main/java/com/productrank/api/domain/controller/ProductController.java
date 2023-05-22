@@ -5,6 +5,7 @@ import com.productrank.api.domain.dto.CommentsDto;
 import com.productrank.api.domain.dto.ProductDto;
 import com.productrank.api.domain.dto.ProductEnrollReq;
 import com.productrank.api.domain.entity.enums.RankingType;
+import com.productrank.api.domain.repository.RankingInterface;
 import com.productrank.api.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/ranking/{rankingType}")
-    public ResponseEntity<List<ProductDto>> getRankings(@PathVariable("rankingType")String type){
+    public ResponseEntity<List<RankingInterface>> getRankings(@PathVariable("rankingType")String type){
         RankingType rType = RankingType.valueOf(type);
         return ResponseEntity.ok(productService.getRankProducts(rType));
     }

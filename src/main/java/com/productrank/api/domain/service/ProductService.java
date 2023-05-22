@@ -9,6 +9,7 @@ import com.productrank.api.domain.entity.Product;
 import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.entity.enums.RankingType;
 import com.productrank.api.domain.repository.ProductRepository;
+import com.productrank.api.domain.repository.RankingInterface;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -116,8 +117,7 @@ public class ProductService {
         return ProductDto.from(product);
     }
 
-    public List<ProductDto> getRankProducts(RankingType type) {
-        rankingService.getRanks(type);
-        return null;
+    public List<RankingInterface> getRankProducts(RankingType type) {
+        return rankingService.getRanks(type);
     }
 }

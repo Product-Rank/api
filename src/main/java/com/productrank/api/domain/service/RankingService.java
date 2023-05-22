@@ -6,8 +6,8 @@ import com.productrank.api.domain.entity.Ranking;
 import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.entity.enums.RankingType;
 import com.productrank.api.domain.repository.RankingRepository;
-import com.productrank.api.domain.repository.TestIf;
-import com.productrank.api.domain.repository.TestRealIf;
+import com.productrank.api.domain.repository.RankingInterface;
+import com.productrank.api.domain.repository.RankingView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,14 +32,11 @@ public class RankingService {
         return RankingDto.from(user.getId(), product.getId(), save);
     }
 
-    public String getRanks(RankingType type) {
+    public List<RankingInterface> getRanks(RankingType type) {
         List<String> sAndE = type.getStartAndEndDay();
-        List<TestIf> rankingsInPeriod = rankingRepository.getRankingsInPeriod(sAndE.get(0), sAndE.get(1), 5);
-
-
-        rankingsInPeriod.stream()
-                .map(v -> new TestRealIf(v.getId(), v.getCounts()))
-                .forEach(System.out::println);
-        return "";
+        if (type == RankingType.DAILY) {
+            return rankingRepository.getRankingsInPeriod(sAndE.get(0), 5);
+        }
+        return rankingRepository.getRankingsInPeriod(sAndE.get(0), sAndE.get(1), 5);
     }
 }
