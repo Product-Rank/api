@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface RankingRepository extends JpaRepository<Ranking, Long> {
     @Query(nativeQuery = true,
-            value = "select count(*) as count, product_id as id from ranking " +
+            value = "select count(*) as counts, product_id as id from ranking " +
             "where created_at between :startDt and :endDt " +
             "group by product_id " +
             "limit :limit")
     List<RankingInterface> getRankingsInPeriod(String startDt, String endDt, int limit);
-    @Query(nativeQuery = true, value = "select count(*) as count, product_id as id from ranking " +
-            "where created_ad like :day||'%' " +
+    @Query(nativeQuery = true, value = "select count(*) as counts, product_id as id from ranking " +
+            "where created_at like '%'||:day||'%' " +
             "group by product_id " +
             "limit :limit")
     List<RankingInterface> getRankingsInPeriod(String day, int limit);

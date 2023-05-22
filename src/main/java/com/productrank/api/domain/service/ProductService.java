@@ -10,6 +10,7 @@ import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.entity.enums.RankingType;
 import com.productrank.api.domain.repository.ProductRepository;
 import com.productrank.api.domain.repository.RankingInterface;
+import com.productrank.api.domain.repository.RankingView;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
