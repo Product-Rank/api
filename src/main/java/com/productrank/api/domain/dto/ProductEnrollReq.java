@@ -1,6 +1,8 @@
 package com.productrank.api.domain.dto;
 
-public record ProductEnrollReq(String productName,
+import jakarta.validation.constraints.NotBlank;
+
+public record ProductEnrollReq(@NotBlank String productName,
                                String productDescription,
-                               Long companyId) {
+                               @NotBlank Long companyId) {
 }

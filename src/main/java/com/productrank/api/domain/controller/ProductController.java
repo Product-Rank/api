@@ -4,6 +4,9 @@ import com.productrank.api.config.security.custom.SecurityUser;
 import com.productrank.api.domain.dto.CommentsDto;
 import com.productrank.api.domain.dto.ProductDto;
 import com.productrank.api.domain.dto.ProductEnrollReq;
+import com.productrank.api.domain.entity.enums.RankingType;
+import com.productrank.api.domain.repository.RankingInterface;
+import com.productrank.api.domain.repository.RankingView;
 import com.productrank.api.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -50,13 +53,19 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable("productId")Long id) {
-        return ResponseEntity.ok(productService.voteUp(id));
+    public ResponseEntity<ProductDto> updateProduct(@AuthenticationPrincipal SecurityUser user, @PathVariable("productId")Long id) {
+        return ResponseEntity.ok(productService.voteUp(id, user.getUser()));
     }
 
     @DeleteMapping("/{productId}")
     public ResponseEntity<ProductDto> deleteProduct(@PathVariable("productId")Long id){
         return ResponseEntity.ok(productService.deleteProduct(id));
+    }
+
+    @GetMapping("/ranking/{rankingType}")
+    public ResponseEntity<List<RankingInterface>> getRankings(@PathVariable("rankingType")String type){
+        RankingType rType = RankingType.valueOf(type);
+        return ResponseEntity.ok(productService.getRankProducts(rType));
     }
     /* TODO: 1. update product
                 -1 view update (v)

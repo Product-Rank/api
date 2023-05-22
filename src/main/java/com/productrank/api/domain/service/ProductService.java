@@ -2,14 +2,19 @@ package com.productrank.api.domain.service;
 
 import com.productrank.api.domain.dto.CommentsDto;
 import com.productrank.api.domain.dto.ProductDto;
+import com.productrank.api.domain.dto.RankingDto;
 import com.productrank.api.domain.entity.Comments;
 import com.productrank.api.domain.entity.Company;
 import com.productrank.api.domain.entity.Product;
 import com.productrank.api.domain.entity.User;
+import com.productrank.api.domain.entity.enums.RankingType;
 import com.productrank.api.domain.repository.ProductRepository;
+import com.productrank.api.domain.repository.RankingInterface;
+import com.productrank.api.domain.repository.RankingView;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +23,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
     private final ProductRepository productRepository;
     private final CompanyService companyService;
     private final CommentsService commentsService;
     private final UserRepository userRepository;
+    private final RankingService rankingService;
     public List<ProductDto> getAllProductList() {
         return productRepository.findAll().stream()
                 .map(v -> ProductDto.from(v, v.getCompany().getCompanyName()))
@@ -82,14 +89,23 @@ public class ProductService {
         product.updateProductDescription(dto.productDescription());
         product.updateName(dto.productName());
 
+
+
         return ProductDto.from(product);
     }
     @Transactional
-    public ProductDto voteUp(Long id) {
+    public ProductDto voteUp(Long id, User user) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(ErrorCode.NOT_EXIST_PRODUCT.getMessage()));
 
         product.voteUp();
+
+        RankingDto rankingDto = RankingDto.builder()
+                .productId(product.getId())
+                .userId(user.getId())
+                .build();
+
+        rankingService.rank(rankingDto, user, product);
 
         return ProductDto.from(product);
     }
@@ -100,5 +116,9 @@ public class ProductService {
 
         productRepository.delete(product);
         return ProductDto.from(product);
+    }
+
+    public List<RankingInterface> getRankProducts(RankingType type) {
+        return rankingService.getRanks(type);
     }
 }

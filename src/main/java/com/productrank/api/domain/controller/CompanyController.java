@@ -3,6 +3,7 @@ package com.productrank.api.domain.controller;
 import com.productrank.api.config.security.custom.SecurityUser;
 import com.productrank.api.domain.dto.CompanyDto;
 import com.productrank.api.domain.service.CompanyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +29,12 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<CompanyDto> enrollCompany(@AuthenticationPrincipal SecurityUser user, @RequestBody CompanyDto dto){
+    public ResponseEntity<CompanyDto> enrollCompany(@AuthenticationPrincipal SecurityUser user, @RequestBody @Valid CompanyDto dto){
         return ResponseEntity.ok(companyService.enrollCompany(user.getUser(), dto));
     }
 
     @PutMapping
-    public ResponseEntity<CompanyDto> updateCompany(@AuthenticationPrincipal SecurityUser user, @RequestBody CompanyDto dto){
+    public ResponseEntity<CompanyDto> updateCompany(@AuthenticationPrincipal SecurityUser user, @RequestBody @Valid CompanyDto dto){
         return ResponseEntity.ok(companyService.updateCompany(user.getUser(), dto));
     }
 
