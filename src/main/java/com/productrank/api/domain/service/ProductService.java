@@ -1,8 +1,6 @@
 package com.productrank.api.domain.service;
 
-import com.productrank.api.domain.dto.CommentsDto;
-import com.productrank.api.domain.dto.ProductDto;
-import com.productrank.api.domain.dto.RankingDto;
+import com.productrank.api.domain.dto.*;
 import com.productrank.api.domain.entity.Comments;
 import com.productrank.api.domain.entity.Company;
 import com.productrank.api.domain.entity.Product;
@@ -116,8 +114,7 @@ public class ProductService {
         return ProductDto.from(product);
     }
 
-    public List<ProductDto> getRankProducts(RankingType type) {
-        rankingService.getRanks(type);
-        return null;
+    public List<RankingView> getRankProducts(RankingType type) {
+        return rankingService.getRanks(type);
     }
 }

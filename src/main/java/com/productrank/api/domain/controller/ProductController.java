@@ -1,9 +1,7 @@
 package com.productrank.api.domain.controller;
 
 import com.productrank.api.config.security.custom.SecurityUser;
-import com.productrank.api.domain.dto.CommentsDto;
-import com.productrank.api.domain.dto.ProductDto;
-import com.productrank.api.domain.dto.ProductEnrollReq;
+import com.productrank.api.domain.dto.*;
 import com.productrank.api.domain.entity.enums.RankingType;
 import com.productrank.api.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/ranking/{rankingType}")
-    public ResponseEntity<List<ProductDto>> getRankings(@PathVariable("rankingType")String type){
+    public ResponseEntity<List<RankingView>> getRankings(@PathVariable("rankingType")String type){
         RankingType rType = RankingType.valueOf(type);
         return ResponseEntity.ok(productService.getRankProducts(rType));
     }
