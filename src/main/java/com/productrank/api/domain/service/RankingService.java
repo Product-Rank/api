@@ -35,7 +35,6 @@ public class RankingService {
     public List<RankingInterface> getRanks(RankingType type) {
         List<String> sAndE = type.getStartAndEndDay();
         if (type == RankingType.DAILY) {
-            log.info("date:: " + sAndE.get(0));
             return rankingRepository.getRankingsInPeriod(sAndE.get(0), 5);
         }
         return rankingRepository.getRankingsInPeriod(sAndE.get(0), sAndE.get(1), 5);
