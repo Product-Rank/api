@@ -4,6 +4,7 @@ import com.productrank.api.domain.entity.User;
 import com.productrank.api.domain.repository.UserRepository;
 import com.productrank.api.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class SecurityUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;

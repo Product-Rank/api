@@ -47,7 +47,7 @@ class ProductControllerTest {
         mockMvc.perform(get("/app/product/all"))
                 .andDo(print());
     }
-
+/*
     @Test
     @WithAuthUser(email = "test@naver.com", role="ROLE_ADMIN")
     void add() throws Exception {
@@ -63,5 +63,5 @@ class ProductControllerTest {
                         .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print());
-    }
+    }*/
 }

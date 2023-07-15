@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,7 +63,7 @@ public class KakaoOauth implements SocialOauth {
 
         return ResponseEntity.ok(response.bearerTokenInfo());
     }
-    public SNSUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException{
+    public SNSUser getUserInfo(ResponseEntity<String> userInfoRes) throws JsonProcessingException, UnsupportedEncodingException {
         KakaoData contents = loginClient.getUserData(userInfoRes.getBody());
         KakaoData.KakaoAccount accounts = contents.kakao_account();
         KakaoData.Profile profile = accounts.profile();
