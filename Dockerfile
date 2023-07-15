@@ -1,4 +1,5 @@
 FROM openjdk:17-jdk-slim
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=test,private","/app.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=test,local-private","/app.jar"]
+#ENTRYPOINT ["java","-jar","-Dspring.profiles.active=test,private","/app.jar"]

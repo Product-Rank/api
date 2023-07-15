@@ -1,0 +1,2 @@
+docker build --platform amd64 --build-arg DEPENDENCY=build/dependency -t chkchk610/product-rank:0.0.5 .
+docker build -t chkchk610/product-rank:0.1.0 .
